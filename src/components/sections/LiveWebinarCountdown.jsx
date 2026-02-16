@@ -31,7 +31,7 @@ export default function LiveWebinarCountdown() {
   }, [])
 
   return (
-    <section className="relative -mt-32 py-2 px-6 bg-white overflow-hidden">
+    <section className="relative -mt-48 py-2 px-6 bg-white overflow-hidden">
       {/* Animated Dots Container - Left Side - Outside Border */}
       <div className="absolute left-0 top-0 w-1/3 h-full pointer-events-none z-0">
         {[...Array(25)].map((_, i) => (
