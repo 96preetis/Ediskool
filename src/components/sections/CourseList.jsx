@@ -72,47 +72,9 @@ export default function CourseList() {
       <div className="max-w-7xl mx-auto">
         {/* Main Heading */}
         <div className="text-center mb-12 mt-8">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-8" style={{ color: '#ea580c' }}>
-            What EXACTLY will you Learn
+          <h2 className="text-4xl lg:text-5xl font-bold mb-8" style={{ color: '#ea580c' }}>
+            Our professional Courses
           </h2>
-
-          {/* Stats Section */}
-          <div className="inline-block border border-gray-300 rounded-2xl px-12 py-4 bg-white shadow-sm">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-              {/* Stat 1: Duration */}
-              <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                  {totalDuration}
-                  <span className="text-xl">+</span>
-                </div>
-                <p className="text-xs lg:text-sm text-slate-600 font-medium">
-                  Hours
-                </p>
-              </div>
-
-              {/* Stat 2: Topics */}
-              <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                  {totalTopics}
-                  <span className="text-xl">+</span>
-                </div>
-                <p className="text-xs lg:text-sm text-slate-600 font-medium">
-                  Topics
-                </p>
-              </div>
-
-              {/* Stat 3: Courses */}
-              <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                  {totalCourses}
-                  <span className="text-xl">+</span>
-                </div>
-                <p className="text-sm lg:text-base text-slate-600 font-medium">
-                  Courses
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Courses Section with Sticky Stack Scroll Effect */}

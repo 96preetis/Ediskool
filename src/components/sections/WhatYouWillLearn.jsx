@@ -1,94 +1,86 @@
-export default function WhatYouWillLearn() {
-  const learningPaths = [
+
+  export default function WhatYouWillLearn() {
+  // Course data with hours and topics
+  const courses = [
     {
-      title: 'Web Development',
-      skills: [
-        'HTML, CSS & JavaScript',
-        'React & Modern Frontend',
-        'Backend with Node.js',
-        'Database Design & SQL',
-        'Deployment & DevOps',
-        'Real-world Project Building'
-      ]
+      id: 1,
+      name: 'Web Development',
+      hours: 120,
+      topics: 25
     },
     {
-      title: 'Data Science',
-      skills: [
-        'Python Programming',
-        'Data Manipulation & Analysis',
-        'Statistics & Probability',
-        'Machine Learning',
-        'Data Visualization',
-        'Real Business Problems'
-      ]
+      id: 2,
+      name: 'Data Science',
+      hours: 100,
+      topics: 20
     },
     {
-      title: 'Mobile Development',
-      skills: [
-        'React Native Basics',
-        'UI/UX Best Practices',
-        'State Management',
-        'API Integration',
-        'Testing & Debugging',
-        'App Deployment'
-      ]
+      id: 3,
+      name: 'Mobile Development',
+      hours: 90,
+      topics: 18
+    },
+    {
+      id: 4,
+      name: 'UI/UX Design',
+      hours: 60,
+      topics: 15
     }
-  ]
+  ];
+
+  // Calculate totals
+  const totalDuration = courses.reduce((sum, course) => sum + course.hours, 0);
+  const totalTopics = courses.reduce((sum, course) => sum + course.topics, 0);
+  const totalCourses = courses.length;
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-slate-900 to-slate-800">
+    <section className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 text-white">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-            What Exactly Will You Learn?
+        {/* Main Heading */}
+        <div className="text-center mb-12 mt-8">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-15" style={{ color: '#ea580c' }}>
+            What EXACTLY will you Learn
           </h2>
-          <p className="text-lg text-slate-300">
-            Structured curriculum designed for practical skill development
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {learningPaths.map((path, idx) => (
-            <div
-              key={idx}
-              className="bg-slate-800 border border-slate-700 rounded-lg p-8 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition"
-            >
-              <h3 className="text-2xl font-bold text-white mb-6">
-                {path.title}
-              </h3>
-              <ul className="space-y-4">
-                {path.skills.map((skill, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-blue-500 font-bold text-xl mt-1">✓</span>
-                    <span className="text-slate-200">{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+          {/* Stats Section */}
+          <div className="inline-block border border-gray-300 rounded-2xl px-20 py-6 bg-white shadow-sm">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-35">
+              {/* Stat 1: Duration */}
+              <div className="text-center">
+                <div className="text-4xl lg:text-5xl font-bold text-slate-900 mb-2">
+                  {totalDuration}
+                  <span className="text-2xl">+</span>
+                </div>
+                <p className="text-lg lg:text-xl text-slate-600 font-medium">
+                  Hours
+                </p>
+              </div>
 
-        <div className="bg-slate-700 rounded-lg p-8 text-white">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="text-4xl font-bold text-blue-400 mb-2">50+</p>
-              <p className="text-slate-300">Detailed Modules</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-blue-400 mb-2">200+</p>
-              <p className="text-slate-300">Video Lessons</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-blue-400 mb-2">100+</p>
-              <p className="text-slate-300">Practical Exercises</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-blue-400 mb-2">10+</p>
-              <p className="text-slate-300">Real Projects</p>
+              {/* Stat 2: Topics */}
+              <div className="text-center">
+                <div className="text-4xl lg:text-5xl font-bold text-slate-900 mb-2">
+                  {totalTopics}
+                  <span className="text-2xl">+</span>
+                </div>
+                <p className="text-lg lg:text-xl text-slate-600 font-medium">
+                  Topics
+                </p>
+              </div>
+
+              {/* Stat 3: Courses */}
+              <div className="text-center">
+                <div className="text-4xl lg:text-5xl font-bold text-slate-900 mb-2">
+                  {totalCourses}
+                  <span className="text-2xl">+</span>
+                </div>
+                <p className="text-lg lg:text-xl text-slate-600 font-medium">
+                  Courses
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

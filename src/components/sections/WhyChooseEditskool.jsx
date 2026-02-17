@@ -36,7 +36,7 @@ export default function WhyChooseEditskool() {
     <section className="py-20 px-6 bg-gradient-to-b from-white to-slate-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#ea580c' }}>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-4" style={{ color: '#ea580c' }}>
             Why Learners Trust Ediskool
           </h2>
         </div>
