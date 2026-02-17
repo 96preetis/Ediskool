@@ -1,83 +1,97 @@
 export default function MeetYourMentor() {
-  const mentors = [
-    {
-      name: 'John Developer',
-      role: 'Full Stack Engineer',
-      bio: '10+ years at top tech companies. Passionate about teaching real-world development.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-      expertise: ['React', 'Node.js', 'Python']
-    },
-    {
-      name: 'Sarah Code',
-      role: 'Frontend Expert',
-      bio: 'Built interfaces for millions. Loves creating beautiful, responsive designs.',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop',
-      expertise: ['React', 'Vue', 'CSS']
-    },
-    {
-      name: 'Mike Backend',
-      role: 'Backend Architecture Lead',
-      bio: 'Designed systems serving 100M+ users. Expert in scalable backend solutions.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-      expertise: ['Node.js', 'Go', 'Kubernetes']
-    }
-  ]
-
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-16 px-6" style={{ backgroundColor: '#F5E6D3' }}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-            Meet Your Mentors
-          </h2>
-          <p className="text-lg text-slate-600">
-            Learn from the best professionals in the industry
-          </p>
-        </div>
+        {/* Wrapper at 70% width centered */}
+        <div className="w-full lg:w-[70%] mx-auto">
+          {/* Title Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-2" style={{ color: '#ea580c' }}>
+              Meet Your Instructor
+            </h2>
+            <p className="text-xl text-slate-700 font-light">
+              -Shobhit Gour
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-10">
-          {mentors.map((mentor, idx) => (
-            <div key={idx} className="bg-gradient-to-b from-slate-50 to-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition">
-              <div className="relative">
-                <img
-                  src={mentor.image}
-                  alt={mentor.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent"></div>
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-2 gap-10">
+            {/* Left Column */}
+            <div className="space-y-6">
+              {/* Top Image */}
+              <div className="flex justify-center lg:justify-start">
+                <div className="rounded-3xl overflow-hidden shadow-xl" style={{ maxWidth: '320px' }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=350&h=300&fit=crop"
+                    alt="Shobhit Gour"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
               </div>
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-900 mb-1">
-                  {mentor.name}
-                </h3>
-                <p className="text-blue-600 font-semibold mb-3">
-                  {mentor.role}
+              {/* Bottom Info Boxes */}
+              <div className="space-y-3">
+                <p className="text-slate-800 font-semibold text-base">
+                  Just because of Video Editing,
                 </p>
-                <p className="text-slate-600 text-sm mb-5 leading-relaxed">
-                  {mentor.bio}
-                </p>
-
-                <div className="mb-6">
-                  <p className="text-xs font-semibold text-slate-700 mb-3">EXPERTISE</p>
-                  <div className="flex flex-wrap gap-2">
-                    {mentor.expertise.map((skill, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <span className="text-slate-800 font-bold text-lg flex-shrink-0">→</span>
+                    <p className="text-slate-700 text-sm">I have the Freedom to work from anywhere in the World. All I need is a Laptop and Internet connection.</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-slate-800 font-bold text-lg flex-shrink-0">→</span>
+                    <p className="text-slate-700 text-sm">I am earning in Dollars while working with International clients, that allows me to live a life the way I wanted while travelling the World.</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-slate-800 font-bold text-lg flex-shrink-0">→</span>
+                    <p className="text-slate-700 text-sm">I have been able to reach hundreds of thousands of people just from my own organic content that I edited on Instagram of Editing Skool</p>
                   </div>
                 </div>
-
-                <button className="w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold py-2 rounded-lg transition cursor-pointer">
-                  View Profile
-                </button>
               </div>
             </div>
-          ))}
+
+            {/* Right Column */}
+            <div className="space-y-6 flex flex-col">
+              {/* Top Text Content */}
+              <div className="space-y-4">
+                <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 leading-tight">
+                  Learn From Someone Who's Actually Done the Work
+                </h3>
+                
+                <div className="space-y-3">
+                  <p className="text-slate-800 text-base">
+                    <span className="font-semibold">Shobhit Gour is not just a trainer — he's a working creative.</span>
+                  </p>
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    From client edits to brand content, his experience shapes every lesson inside Ediskool.
+                  </p>
+                </div>
+
+                <div className="bg-white p-4 rounded-2xl shadow-md space-y-2" style={{ backgroundColor: '#fed7aa' }}>
+                  <p className="text-slate-800 font-semibold text-base">
+                    No fake promises.
+                    <br />
+                    Only practical learning.
+                  </p>
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Because skills grow faster when taught by someone who's been there.
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom Image */}
+              <div className="flex justify-center lg:justify-end mt-auto">
+                <div className="rounded-3xl overflow-hidden shadow-xl" style={{ maxWidth: '320px' }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=350&h=300&fit=crop"
+                    alt="Mentor lifestyle"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
