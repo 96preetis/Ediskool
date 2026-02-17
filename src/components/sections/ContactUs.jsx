@@ -1,6 +1,6 @@
 export default function ContactUs() {
   return (
-    <section className="py-8 px-6 bg-white">
+    <section id="contact" className="py-8 px-6 bg-white">
       <div className="max-w-md mx-auto">
         <div className="p-8 rounded-lg" style={{ border: '2px solid #fb923c' }}>
           <div className="text-center">

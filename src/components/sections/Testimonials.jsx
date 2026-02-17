@@ -113,7 +113,7 @@ export default function Testimonials() {
   );
 
   return (
-    <section className="pt-4 pb-20 px-6 bg-white">
+    <section id="trusted-by" className="pt-4 pb-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4" style={{ color: '#ea580c' }}>

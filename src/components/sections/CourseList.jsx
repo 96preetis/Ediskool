@@ -68,7 +68,7 @@ export default function CourseList() {
   }
 
   return (
-    <section className="py-20 px-6 bg-white">
+    <section id="courses" className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Main Heading */}
         <div className="text-center mb-12 mt-8">

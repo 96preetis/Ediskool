@@ -1,6 +1,6 @@
 export default function MeetYourMentor() {
   return (
-    <section className="py-16 px-6" style={{ backgroundColor: '#fef9e7' }}>
+    <section id="instructor" className="py-16 px-6" style={{ backgroundColor: '#fef9e7' }}>
       <div className="max-w-7xl mx-auto">
         {/* Wrapper at 70% width centered */}
         <div className="w-full lg:w-[70%] mx-auto">
