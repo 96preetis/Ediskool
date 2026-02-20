@@ -1,4 +1,9 @@
+import { useState } from 'react'
+
 export default function CourseList() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedCourse, setSelectedCourse] = useState(null)
+
   const courses = [
     {
       id: 1,
@@ -62,9 +67,14 @@ export default function CourseList() {
   const totalTopics = courses.reduce((sum, course) => sum + course.topics, 0)
   const totalCourses = courses.length
 
-  const handleViewCourse = (courseId) => {
-    // Navigate to class plus course page
-    window.location.href = `/courses/${courseId}`
+  const handleViewCourse = (course) => {
+    setSelectedCourse(course)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedCourse(null)
   }
 
   return (
@@ -131,11 +141,11 @@ export default function CourseList() {
                   {/* View Button */}
                   <div className="mt-auto pt-4 border-t-2 flex items-center gap-4" style={{ borderColor: index % 2 === 0 ? '#f59e0b' : '#d97706' }}>
                     <button 
-                      onClick={() => handleViewCourse(course.id)}
+                      onClick={() => handleViewCourse(course)}
                       className="text-white font-bold py-3 px-8 rounded-lg transition cursor-pointer whitespace-nowrap flex-shrink-0 relative z-30 hover:opacity-90"
                       style={{ backgroundColor: '#fb923c' }}
                     >
-                      View Course
+                      View Details
                     </button>
                   </div>
                 </div>
@@ -154,6 +164,117 @@ export default function CourseList() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedCourse && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="relative h-80 overflow-hidden">
+              <img
+                src={selectedCourse.image}
+                alt={selectedCourse.title}
+                className="w-full h-full object-cover"
+              />
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full w-10 h-10 flex items-center justify-center text-2xl font-bold transition"
+                style={{ color: '#ea580c' }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-8">
+              {/* Course Header Info */}
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold mb-3" style={{ color: '#ea580c' }}>
+                  {selectedCourse.title}
+                </h2>
+                
+                <div className="flex flex-wrap gap-6 mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">🎬</span>
+                    <div>
+                      <p className="text-xs text-gray-600">Module</p>
+                      <p className="font-semibold text-gray-800">{selectedCourse.module}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">📚</span>
+                    <div>
+                      <p className="text-xs text-gray-600">Classes</p>
+                      <p className="font-semibold text-gray-800">{selectedCourse.classes}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">⏱</span>
+                    <div>
+                      <p className="text-xs text-gray-600">Duration</p>
+                      <p className="font-semibold text-gray-800">{selectedCourse.time}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">🎯</span>
+                    <div>
+                      <p className="text-xs text-gray-600">Topics</p>
+                      <p className="font-semibold text-gray-800">{selectedCourse.topics}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-8">
+                <h3 className="text-lg font-bold mb-3" style={{ color: '#1f2937' }}>
+                  About This Course
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  {selectedCourse.description}
+                </p>
+              </div>
+
+              {/* Course Details Grid */}
+              <div className="grid grid-cols-2 gap-4 mb-8 p-4 rounded-lg" style={{ backgroundColor: '#fef9e7' }}>
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Total Duration</p>
+                  <p className="text-lg font-bold" style={{ color: '#ea580c' }}>{selectedCourse.duration} hrs</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Learning Topics</p>
+                  <p className="text-lg font-bold" style={{ color: '#ea580c' }}>{selectedCourse.topics} Topics</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Classes</p>
+                  <p className="text-lg font-bold" style={{ color: '#ea580c' }}>{selectedCourse.classes}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Ideal For</p>
+                  <p className="text-lg font-bold" style={{ color: '#ea580c' }}>All Levels</p>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4">
+                <button
+                  onClick={closeModal}
+                  className="flex-1 py-3 px-6 rounded-lg font-bold transition border-2"
+                  style={{ borderColor: '#ea580c', color: '#ea580c' }}
+                >
+                  Close
+                </button>
+                <button
+                  className="flex-1 py-3 px-6 rounded-lg font-bold text-white transition hover:opacity-90"
+                  style={{ backgroundColor: '#ea580c' }}
+                >
+                  Enroll Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
