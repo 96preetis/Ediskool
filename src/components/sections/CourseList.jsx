@@ -13,7 +13,10 @@ export default function CourseList() {
       duration: 6.5,
       topics: 42,
       title: 'Advanced Video Editing & Data Management',
-      description: 'Learn cutting edge Video Editing with advanced techniques to manipulate your footage exactly the way you wanted. We\'ll not only teach you techniques like pacing, speed ramping, graphics, a solid timeline flow, working on high end projects, BUT - You\'ll also learn Industry standard Data Management which is essential to become a Pro Editor - All of this will be taught from Scratch, you don\'t need any prior knowledge of Video Editing.',
+      description: [
+        'Master advanced editing techniques and professional data management',
+        'Learn pacing, speed ramping, graphics, and timeline flow'
+      ],
       image: 'https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=600&h=400&fit=crop'
     },
     {
@@ -24,7 +27,10 @@ export default function CourseList() {
       duration: 5.75,
       topics: 38,
       title: 'Motion Graphics & Effects Mastery',
-      description: 'Master the art of motion graphics and visual effects in professional video production. Learn how to create stunning animations, transitions, and effects that will elevate your video projects to the next level. From basic animations to complex compositing, this course covers everything you need to know to become an expert in motion graphics.',
+      description: [
+        'Create stunning animations and visual effects for professional videos',
+        'Learn animations, transitions, and advanced compositing techniques'
+      ],
       image: 'https://images.unsplash.com/photo-1598148755637-f1e4f56f0f12?w=600&h=400&fit=crop'
     },
     {
@@ -35,7 +41,10 @@ export default function CourseList() {
       duration: 6.25,
       topics: 40,
       title: 'Color Grading & Colour Theory',
-      description: 'Master professional color grading techniques to give your videos a cinematic look. Learn color theory, how to work with different color spaces, and apply professional color grades used in Hollywood productions. Transform ordinary footage into visually stunning content with industry-standard color correction workflows.',
+      description: [
+        'Give your videos a cinematic look with professional color grading',
+        'Master color theory and Hollywood-standard color correction'
+      ],
       image: 'https://images.unsplash.com/photo-1574375935520-a4632281ae95?w=600&h=400&fit=crop'
     },
     {
@@ -46,7 +55,10 @@ export default function CourseList() {
       duration: 5.33,
       topics: 35,
       title: 'Sound Design & Audio Mixing',
-      description: 'Learn professional audio mixing and sound design for video production. Discover how to create immersive soundscapes, mix dialogue with music and effects, and master the art of audio post-production. Make your videos sound as professional as they look with expert audio techniques.',
+      description: [
+        'Create professional audio for your videos with mixing and sound design',
+        'Master immersive soundscapes and audio post-production'
+      ],
       image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop'
     },
     {
@@ -57,7 +69,10 @@ export default function CourseList() {
       duration: 4.83,
       topics: 32,
       title: 'Project Management & Client Work',
-      description: 'Master the business side of video editing. Learn how to manage projects, handle client communications, deliver professional work on time, and build a sustainable editing career. Understand workflows, pricing strategies, and how to scale your editing business.',
+      description: [
+        'Build a professional editing career with project management skills',
+        'Learn pricing strategies and business scaling'
+      ],
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop'
     }
   ]
@@ -133,9 +148,14 @@ export default function CourseList() {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm lg:text-base leading-relaxed mb-4" style={{ color: index % 2 === 0 ? '#78350f' : '#1f2937' }}>
-                      {course.description}
-                    </p>
+                    <ul className="text-xs lg:text-sm leading-relaxed mb-4 space-y-2" style={{ color: index % 2 === 0 ? '#78350f' : '#1f2937' }}>
+                      {course.description.map((point, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-lg leading-none mt-0.5">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
                   {/* View Button */}
@@ -151,7 +171,7 @@ export default function CourseList() {
                 </div>
 
                 {/* Right Image */}
-                <div className="w-full lg:w-80 h-56 lg:h-auto overflow-hidden flex-shrink-0 p-4 lg:p-6">
+                <div className="w-full lg:w-96 h-72 lg:h-auto overflow-hidden flex-shrink-0 p-4 lg:p-6">
                   <img
                     src={course.image}
                     alt={course.title}
@@ -230,9 +250,14 @@ export default function CourseList() {
                 <h3 className="text-lg font-bold mb-3" style={{ color: '#1f2937' }}>
                   About This Course
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  {selectedCourse.description}
-                </p>
+                <ul className="text-gray-700 leading-relaxed space-y-2">
+                  {selectedCourse.description.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-lg leading-none mt-0.5">•</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Course Details Grid */}
