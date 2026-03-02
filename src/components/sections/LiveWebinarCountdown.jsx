@@ -31,80 +31,89 @@ export default function LiveWebinarCountdown() {
   }, [])
 
   return (
-    <section className="relative -mt-48 py-2 px-6 bg-white overflow-hidden">
-      {/* Animated Dots Container - Left Side - Outside Border */}
-      <div className="absolute left-0 top-0 w-1/3 h-full pointer-events-none z-0">
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={`left-${i}`}
-            className="absolute w-1 h-1 bg-black rounded-full"
-            style={{
-              animation: `floatDot 8s ease-in-out infinite`,
-              animationDelay: `${(i / 25) * 8}s`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: 1
-            }}
-          ></div>
-        ))}
-      </div>
-
-      {/* Animated Dots Container - Right Side - Outside Border */}
-      <div className="absolute right-0 top-0 w-1/3 h-full pointer-events-none z-0">
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={`right-${i}`}
-            className="absolute w-1 h-1 bg-black rounded-full"
-            style={{
-              animation: `floatDot 8s ease-in-out infinite`,
-              animationDelay: `${(i / 25) * 8}s`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: 1
-            }}
-          ></div>
-        ))}
-      </div>
-
-      <div className="max-w-3xl mx-auto relative z-10">
-        {/* Section Heading */}
-        <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#ea580c' }}>
+    <section className="relative -mt-48 bg-white w-screen overflow-hidden">
+      {/* Full-width outer container with pure white background */}
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center">
+        
+        {/* Section Heading - Above everything */}
+        <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center absolute" style={{ color: '#ea580c', top: '60px', zIndex: 20 }}>
           Webinar Starts In
         </h2>
 
-        {/* Border Container - Image and Content Inside */}
-        <div className="border border-black rounded-2xl p-4 lg:p-5" style={{ borderWidth: '1px' }}>
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24">
-            
-            {/* Left: Circular Image - Inside Border */}
-            <div className="flex-shrink-0 w-40 h-40 lg:w-48 lg:h-48 ml-3 lg:ml-5">
-              <div className="relative w-full h-full">
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
-                  alt="Webinar Speaker"
-                  className="w-full h-full rounded-full object-cover shadow-lg"
-                />
-              </div>
-            </div>
+        {/* 50% width inner div with animated dotted pattern */}
+        <div 
+          className="pointer-events-none"
+          style={{
+            position: 'absolute',
+            width: '60%',
+            height: '300px',
+            left: '50%',
+            top: '32%',
+            transform: 'translate(-50%, -50%)',
+            overflow: 'hidden'
+          }}
+        >
+          {/* Randomly positioned floating dots */}
+          {[...Array(150)].map((_, i) => (
+            <div
+              key={`dot-${i}`}
+              className="absolute bg-black rounded-full"
+              style={{
+                width: '2.5px',
+                height: '2.5px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animation: `floatDot 10s ease-in-out infinite`,
+                animationDelay: `${(i / 150) * 10}s`,
+                opacity: 0.8
+              }}
+            ></div>
+          ))}
+        </div>
 
-            {/* Right: Countdown Content - Inside Border */}
-            <div className="flex-2 text-center lg:text-left">
-              {/* Headline */}
-              <p className="text-sm lg:text-base font-semibold text-black mb-2">
-                Join Ediskool's next weekly Live Session
-              </p>
-
-              {/* Large Countdown Timer */}
-              <div className="mb-2">
-                <div className="text-3xl lg:text-4xl font-bold text-black tracking-wider font-mono">
-                  {String(timeLeft.days).padStart(2, '0')} : {String(timeLeft.hours).padStart(2, '0')} : {String(timeLeft.minutes).padStart(2, '0')} : {String(timeLeft.seconds).padStart(2, '0')}
+        {/* 40% width white overlay centered on top - contains all content */}
+        <div className="z-10 bg-white rounded-lg" style={{
+          position: 'absolute',
+          width: '40%',
+          left: '50%',
+          top: '32%',
+          transform: 'translate(-50%, -50%)',
+          border: '1px solid #d3d3d3'
+        }}>
+          <div className="py-5 px-2 lg:px-5">
+            {/* Content Container */}
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
+              
+              {/* Left: Circular Image */}
+              <div className="flex-shrink-0 w-40 h-40 lg:w-48 lg:h-48">
+                <div className="relative w-full h-full">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+                    alt="Webinar Speaker"
+                    className="w-full h-full rounded-full object-cover shadow-lg"
+                  />
                 </div>
               </div>
 
-              {/* Sub Text */}
-              <p className="text-sm lg:text-base text-gray-700 font-light">
-                Every Sunday at 8pm
-              </p>
+              {/* Right: Countdown Content */}
+              <div className="flex-1 text-center lg:text-left">
+                {/* Headline */}
+                <p className="text-sm lg:text-base font-semibold text-black mb-4">
+                  Join Ediskool's next weekly Live Session
+                </p>
+
+                {/* Large Countdown Timer */}
+                <div className="mb-4">
+                  <div className="text-3xl lg:text-4xl font-bold text-black tracking-wider font-mono">
+                    {String(timeLeft.days).padStart(2, '0')} : {String(timeLeft.hours).padStart(2, '0')} : {String(timeLeft.minutes).padStart(2, '0')} : {String(timeLeft.seconds).padStart(2, '0')}
+                  </div>
+                </div>
+
+                {/* Sub Text */}
+                <p className="text-sm lg:text-base text-gray-700 font-light">
+                  Every Sunday at 8pm
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -114,47 +123,23 @@ export default function LiveWebinarCountdown() {
         @keyframes floatDot {
           0% {
             transform: translateY(0px) translateX(0px);
-            opacity: 1;
+            opacity: 0.8;
           }
-          10% {
-            transform: translateY(-8px) translateX(5px);
-            opacity: 0.95;
-          }
-          20% {
-            transform: translateY(-15px) translateX(10px);
-            opacity: 0.9;
-          }
-          30% {
-            transform: translateY(-20px) translateX(12px);
-            opacity: 0.88;
-          }
-          40% {
-            transform: translateY(-25px) translateX(10px);
-            opacity: 0.85;
+          25% {
+            transform: translateY(-2px) translateX(1px);
+            opacity: 0.82;
           }
           50% {
-            transform: translateY(-22px) translateX(5px);
-            opacity: 0.88;
+            transform: translateY(0px) translateX(0px);
+            opacity: 0.8;
           }
-          60% {
-            transform: translateY(-18px) translateX(-3px);
-            opacity: 0.9;
-          }
-          70% {
-            transform: translateY(-12px) translateX(-8px);
-            opacity: 0.92;
-          }
-          80% {
-            transform: translateY(-5px) translateX(-5px);
-            opacity: 0.95;
-          }
-          90% {
-            transform: translateY(2px) translateX(2px);
-            opacity: 0.98;
+          75% {
+            transform: translateY(2px) translateX(-1px);
+            opacity: 0.82;
           }
           100% {
             transform: translateY(0px) translateX(0px);
-            opacity: 1;
+            opacity: 0.8;
           }
         }
       `}</style>
