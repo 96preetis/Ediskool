@@ -53,40 +53,26 @@ export default function WhyChooseEditskool() {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
               >
-                {/* Main Card - Icon + Label */}
-                <div className="rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center border border-slate-200 hover:shadow-xl hover:border-orange-400 transition-all duration-300 min-h-56 cursor-pointer" style={{ backgroundColor: '#fef9e7' }}>
-                  <div className="text-orange-500 mb-4 transform transition-transform duration-300">
+                {/* Main Card - Expands on hover */}
+                <div className={`rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center border border-slate-200 hover:shadow-xl hover:border-orange-400 transition-all duration-300 cursor-pointer overflow-hidden ${isHovered ? 'min-h-72' : 'min-h-56'}`} style={{ backgroundColor: '#fef9e7' }}>
+                  {/* Icon - Moves up on hover */}
+                  <div className={`text-orange-500 mb-4 transition-all duration-300 ${isHovered ? '-translate-y-3' : 'translate-y-0'}`}>
                     <IconComponent size={56} strokeWidth={1.5} />
                   </div>
+                  
+                  {/* Label */}
                   <p className="text-center font-semibold text-slate-900 text-sm">
                     {reason.label}
                   </p>
-                </div>
 
-                {/* Hover Card - Appears Below */}
-                {isHovered && (
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 w-full max-w-xs z-50 animate-fadeInUp">
-                    <div className="rounded-2xl shadow-2xl overflow-hidden border border-orange-400" style={{ backgroundColor: '#fef9e7' }}>
-                      {/* Orange Gradient Header */}
-                      <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-8 flex flex-col items-center">
-                        <div className="text-white mb-4">
-                          <IconComponent size={48} strokeWidth={1.5} />
-                        </div>
-                        <h3 className="text-white font-bold text-center text-lg">
-                          {reason.label}
-                        </h3>
-                      </div>
-
-                      {/* Description Section */}
-                      <div className="p-6">
-                        <p className="text-slate-700 text-sm leading-relaxed flex items-start gap-3">
-                          <span className="text-orange-500 font-bold text-lg flex-shrink-0">✔</span>
-                          <span>{reason.description}</span>
-                        </p>
-                      </div>
-                    </div>
+                  {/* Description - Slides in on hover */}
+                  <div className={`mt-4 transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 hidden'}`}>
+                    <p className="text-center text-slate-700 text-sm leading-relaxed max-w-xs flex items-start gap-3">
+                      <span className="text-orange-500 font-bold text-lg flex-shrink-0">✔</span>
+                      <span>{reason.description}</span>
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
             )
           })}
