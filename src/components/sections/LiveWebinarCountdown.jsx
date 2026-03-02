@@ -31,26 +31,27 @@ export default function LiveWebinarCountdown() {
   }, [])
 
   return (
-    <section className="relative -mt-48 bg-white w-screen overflow-hidden">
+    <section className="relative bg-white w-full overflow-hidden">
       {/* Full-width outer container with pure white background */}
-      <div className="relative w-full min-h-screen flex flex-col items-center justify-center">
+      <div className="relative w-full flex flex-col items-center justify-center py-2 md:py-6 px-4 md:px-0">
         
-        {/* Section Heading - Above everything */}
-        <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center absolute" style={{ color: '#ea580c', top: '60px', zIndex: 20 }}>
+        {/* Section Heading */}
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#ea580c' }}>
           Webinar Starts In
         </h2>
 
-        {/* 50% width inner div with animated dotted pattern */}
+        {/* Animated dotted pattern - responsive */}
         <div 
-          className="pointer-events-none"
+          className="pointer-events-none hidden md:block absolute"
           style={{
             position: 'absolute',
             width: '60%',
             height: '300px',
             left: '50%',
-            top: '32%',
+            top: '60%',
             transform: 'translate(-50%, -50%)',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            zIndex: 1
           }}
         >
           {/* Randomly positioned floating dots */}
@@ -71,21 +72,18 @@ export default function LiveWebinarCountdown() {
           ))}
         </div>
 
-        {/* 40% width white overlay centered on top - contains all content */}
-        <div className="z-10 bg-white rounded-lg" style={{
-          position: 'absolute',
-          width: '40%',
-          left: '50%',
-          top: '32%',
-          transform: 'translate(-50%, -50%)',
+        {/* White card - responsive width and positioning */}
+        <div className="relative z-10 bg-white rounded-lg w-full md:w-auto" style={{
+          width: '100%',
+          maxWidth: '700px',
           border: '1px solid #d3d3d3'
         }}>
-          <div className="py-5 px-2 lg:px-5">
-            {/* Content Container */}
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
+          <div className="py-6 sm:py-8 px-4 sm:px-8 md:px-10">
+            {/* Content Container - flex direction changes on mobile */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 md:gap-10">
               
-              {/* Left: Circular Image */}
-              <div className="flex-shrink-0 w-40 h-40 lg:w-48 lg:h-48">
+              {/* Left: Circular Image - responsive size */}
+              <div className="flex-shrink-0 w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44">
                 <div className="relative w-full h-full">
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
@@ -95,22 +93,22 @@ export default function LiveWebinarCountdown() {
                 </div>
               </div>
 
-              {/* Right: Countdown Content */}
-              <div className="flex-1 text-center lg:text-left">
+              {/* Right: Countdown Content - text sizes responsive */}
+              <div className="flex-1 text-center sm:text-left">
                 {/* Headline */}
-                <p className="text-sm lg:text-base font-semibold text-black mb-4">
+                <p className="text-xs sm:text-sm md:text-base font-semibold text-black mb-3 sm:mb-4">
                   Join Ediskool's next weekly Live Session
                 </p>
 
                 {/* Large Countdown Timer */}
-                <div className="mb-4">
-                  <div className="text-3xl lg:text-4xl font-bold text-black tracking-wider font-mono">
+                <div className="mb-3 sm:mb-4">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
                     {String(timeLeft.days).padStart(2, '0')} : {String(timeLeft.hours).padStart(2, '0')} : {String(timeLeft.minutes).padStart(2, '0')} : {String(timeLeft.seconds).padStart(2, '0')}
                   </div>
                 </div>
 
                 {/* Sub Text */}
-                <p className="text-sm lg:text-base text-gray-700 font-light">
+                <p className="text-xs sm:text-sm md:text-base text-gray-700 font-light">
                   Every Sunday at 8pm
                 </p>
               </div>
