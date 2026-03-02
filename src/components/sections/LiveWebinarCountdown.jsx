@@ -48,7 +48,7 @@ export default function LiveWebinarCountdown() {
             width: '60%',
             height: '300px',
             left: '50%',
-            top: '60%',
+            top: '65%',
             transform: 'translate(-50%, -50%)',
             overflow: 'hidden',
             zIndex: 1
