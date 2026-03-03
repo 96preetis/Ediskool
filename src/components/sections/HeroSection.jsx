@@ -19,7 +19,7 @@ export default function HeroSection() {
       }}></div>
 
       {/* Hero Content */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-32 text-center">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-50 text-center">
         {/* Heading */}
         <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight animate-fadeInUp" style={{ color: '#78350f' }}>
           Master Editing Like a <span style={{ color: '#fb923c' }}>Pro</span>
@@ -67,13 +67,13 @@ export default function HeroSection() {
         </svg>
 
         {/* Video Card - Overlapping on Curve */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -top-24 z-10 w-full max-w-2xl px-6">
+        <div className="absolute left-1/2 transform -translate-x-1/2 -top-40 z-10 w-full max-w-3xl px-6">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition bg-white">
             {/* Video Thumbnail */}
             <img
               src="https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1200&h=700&fit=crop"
               alt="Online Learning Instructor"
-              className="w-full h-96 object-cover"
+              className="w-full h-[450px] object-cover"
             />
 
             {/* Play Button Overlay */}

@@ -11,7 +11,7 @@ export default function LiveWebinarCountdown() {
   useEffect(() => {
     const calculateTimeLeft = () => {
       // Dummy calculation - using fixed values that update every second
-      const webinarDate = new Date('2026-03-02T20:00:00').getTime()
+      const webinarDate = new Date('2026-03-10T20:00:00').getTime()
       const now = new Date().getTime()
       const difference = webinarDate - now
 
@@ -55,7 +55,7 @@ export default function LiveWebinarCountdown() {
           }}
         >
           {/* Randomly positioned floating dots */}
-          {[...Array(150)].map((_, i) => (
+          {[...Array(250)].map((_, i) => (
             <div
               key={`dot-${i}`}
               className="absolute bg-black rounded-full"
@@ -64,8 +64,8 @@ export default function LiveWebinarCountdown() {
                 height: '2.5px',
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animation: `floatDot 10s ease-in-out infinite`,
-                animationDelay: `${(i / 150) * 10}s`,
+                animation: `floatDot 40s linear infinite`,
+                animationDelay: `${(i / 250) * 25}s`,
                 opacity: 0.8
               }}
             ></div>
@@ -120,24 +120,88 @@ export default function LiveWebinarCountdown() {
       <style jsx>{`
         @keyframes floatDot {
           0% {
-            transform: translateY(0px) translateX(0px);
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.6;
+          }
+          5% {
+            transform: translateY(-50px) translateX(-70px) scale(1.05);
+            opacity: 0.75;
+          }
+          10% {
+            transform: translateY(-90px) translateX(40px) scale(1);
+            opacity: 0.85;
+          }
+          15% {
+            transform: translateY(-60px) translateX(95px) scale(0.95);
             opacity: 0.8;
+          }
+          20% {
+            transform: translateY(30px) translateX(80px) scale(1);
+            opacity: 0.75;
           }
           25% {
-            transform: translateY(-2px) translateX(1px);
-            opacity: 0.82;
+            transform: translateY(85px) translateX(-50px) scale(1.02);
+            opacity: 0.8;
+          }
+          30% {
+            transform: translateY(70px) translateX(-95px) scale(1);
+            opacity: 0.85;
+          }
+          35% {
+            transform: translateY(-45px) translateX(-85px) scale(1.05);
+            opacity: 0.8;
+          }
+          40% {
+            transform: translateY(-80px) translateX(60px) scale(0.95);
+            opacity: 0.75;
+          }
+          45% {
+            transform: translateY(50px) translateX(35px) scale(1);
+            opacity: 0.8;
           }
           50% {
-            transform: translateY(0px) translateX(0px);
+            transform: translateY(0px) translateX(0px) scale(1.02);
+            opacity: 0.6;
+          }
+          55% {
+            transform: translateY(-35px) translateX(80px) scale(1);
             opacity: 0.8;
+          }
+          60% {
+            transform: translateY(75px) translateX(-75px) scale(1.05);
+            opacity: 0.85;
+          }
+          65% {
+            transform: translateY(-70px) translateX(-45px) scale(0.95);
+            opacity: 0.8;
+          }
+          70% {
+            transform: translateY(60px) translateX(65px) scale(1);
+            opacity: 0.75;
           }
           75% {
-            transform: translateY(2px) translateX(-1px);
-            opacity: 0.82;
+            transform: translateY(-55px) translateX(-90px) scale(1.02);
+            opacity: 0.8;
+          }
+          80% {
+            transform: translateY(-25px) translateX(85px) scale(1);
+            opacity: 0.85;
+          }
+          85% {
+            transform: translateY(80px) translateX(-70px) scale(1.05);
+            opacity: 0.8;
+          }
+          90% {
+            transform: translateY(-75px) translateX(50px) scale(0.95);
+            opacity: 0.75;
+          }
+          95% {
+            transform: translateY(45px) translateX(-60px) scale(1);
+            opacity: 0.8;
           }
           100% {
-            transform: translateY(0px) translateX(0px);
-            opacity: 0.8;
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.6;
           }
         }
       `}</style>
