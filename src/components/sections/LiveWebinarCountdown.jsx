@@ -31,9 +31,9 @@ export default function LiveWebinarCountdown() {
   }, [])
 
   return (
-    <section className="relative bg-white w-full overflow-hidden">
+    <section className="relative bg-white w-full overflow-hidden -mt-40 md:-mt-48">
       {/* Full-width outer container with pure white background */}
-      <div className="relative w-full flex flex-col items-center justify-center py-2 md:py-6 px-4 md:px-0">
+      <div className="relative w-full flex flex-col items-center justify-center pt-0 md:pt-2 pb-2 md:pb-6 px-4 md:px-0">
         
         {/* Section Heading */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#ea580c' }}>
