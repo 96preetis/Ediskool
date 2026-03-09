@@ -1,4 +1,96 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+
+// Particle class for vector-based motion
+class Particle {
+  constructor(x, y, width, height) {
+    this.x = x
+    this.y = y
+    this.width = width
+    this.height = height
+    this.radius = 1.25 // half of 2.5px
+
+    // Generate random angle between 0 and 2π
+    const angle = Math.random() * Math.PI * 2
+
+    // Generate small random speed (0.1 to 0.4)
+    const speed = 0.1 + Math.random() * 0.3
+
+    // Calculate velocity using cos/sin
+    this.vx = Math.cos(angle) * speed
+    this.vy = Math.sin(angle) * speed
+  }
+
+  update() {
+    // Update position using velocity
+    this.x += this.vx
+    this.y += this.vy
+
+    // Apply wrap-around logic
+    if (this.x + this.radius < 0) {
+      this.x = this.width + this.radius
+    } else if (this.x - this.radius > this.width) {
+      this.x = -this.radius
+    }
+
+    if (this.y + this.radius < 0) {
+      this.y = this.height + this.radius
+    } else if (this.y - this.radius > this.height) {
+      this.y = -this.radius
+    }
+  }
+
+  draw(ctx) {
+    ctx.beginPath()
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'
+    ctx.fill()
+  }
+}
+
+// Particle system manager
+class ParticleSystem {
+  constructor(canvas) {
+    this.canvas = canvas
+    this.ctx = canvas.getContext('2d')
+    this.particles = []
+    this.particleCount = 250
+
+    // Initialize particles
+    for (let i = 0; i < this.particleCount; i++) {
+      this.particles.push(
+        new Particle(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          canvas.width,
+          canvas.height
+        )
+      )
+    }
+  }
+
+  update() {
+    this.particles.forEach(particle => particle.update())
+  }
+
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.particles.forEach(particle => particle.draw(this.ctx))
+  }
+
+  animate() {
+    this.update()
+    this.draw()
+  }
+
+  resize(width, height) {
+    this.canvas.width = width
+    this.canvas.height = height
+    this.particles.forEach(particle => {
+      particle.width = width
+      particle.height = height
+    })
+  }
+}
 
 export default function LiveWebinarCountdown() {
   const [timeLeft, setTimeLeft] = useState({
@@ -7,6 +99,9 @@ export default function LiveWebinarCountdown() {
     minutes: 43,
     seconds: 12
   })
+  const canvasRef = useRef(null)
+  const particleSystemRef = useRef(null)
+  const animationIdRef = useRef(null)
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -30,6 +125,49 @@ export default function LiveWebinarCountdown() {
     return () => clearInterval(timer)
   }, [])
 
+  // Canvas particle animation
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    // Set canvas size
+    const updateCanvasSize = () => {
+      const rect = canvas.getBoundingClientRect()
+      canvas.width = rect.width
+      canvas.height = rect.height
+    }
+
+    updateCanvasSize()
+
+    // Initialize particle system
+    particleSystemRef.current = new ParticleSystem(canvas)
+
+    // Animation loop
+    const animate = () => {
+      particleSystemRef.current.animate()
+      animationIdRef.current = requestAnimationFrame(animate)
+    }
+
+    animate()
+
+    // Handle window resize
+    const handleResize = () => {
+      updateCanvasSize()
+      if (particleSystemRef.current) {
+        particleSystemRef.current.resize(canvas.width, canvas.height)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current)
+      }
+    }
+  }, [])
+
   return (
     <section className="relative bg-white w-full overflow-hidden -mt-40 md:-mt-48">
       {/* Full-width outer container with pure white background */}
@@ -40,7 +178,7 @@ export default function LiveWebinarCountdown() {
           Webinar Starts In
         </h2>
 
-        {/* Animated dotted pattern - responsive */}
+        {/* Animated particle system - responsive */}
         <div 
           className="pointer-events-none hidden md:block absolute"
           style={{
@@ -54,22 +192,14 @@ export default function LiveWebinarCountdown() {
             zIndex: 1
           }}
         >
-          {/* Randomly positioned floating dots */}
-          {[...Array(250)].map((_, i) => (
-            <div
-              key={`dot-${i}`}
-              className="absolute bg-black rounded-full"
-              style={{
-                width: '2.5px',
-                height: '2.5px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animation: `floatDot 40s linear infinite`,
-                animationDelay: `${(i / 250) * 25}s`,
-                opacity: 0.8
-              }}
-            ></div>
-          ))}
+          <canvas
+            ref={canvasRef}
+            style={{
+              display: 'block',
+              width: '100%',
+              height: '100%'
+            }}
+          />
         </div>
 
         {/* White card - responsive width and positioning */}
@@ -94,7 +224,7 @@ export default function LiveWebinarCountdown() {
               </div>
 
               {/* Right: Countdown Content - text sizes responsive */}
-              <div className="flex-1 text-center sm:text-left">
+              <div className="flex-1 text-center">
                 {/* Headline */}
                 <p className="text-xs sm:text-sm md:text-base font-semibold text-black mb-3 sm:mb-4">
                   Join Ediskool's next weekly Live Session
@@ -102,8 +232,47 @@ export default function LiveWebinarCountdown() {
 
                 {/* Large Countdown Timer */}
                 <div className="mb-3 sm:mb-4">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
-                    {String(timeLeft.days).padStart(2, '0')} : {String(timeLeft.hours).padStart(2, '0')} : {String(timeLeft.minutes).padStart(2, '0')} : {String(timeLeft.seconds).padStart(2, '0')}
+                  <div className="flex items-end justify-center gap-2 sm:gap-3 md:gap-4">
+                    {/* Days */}
+                    <div className="flex flex-col items-center">
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
+                        {String(timeLeft.days).padStart(2, '0')}
+                      </div>
+                      <p className="text-xs sm:text-xs md:text-sm text-gray-600 font-light mt-1">day</p>
+                    </div>
+
+                    {/* Separator */}
+                    <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6">:</span>
+
+                    {/* Hours */}
+                    <div className="flex flex-col items-center">
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
+                        {String(timeLeft.hours).padStart(2, '0')}
+                      </div>
+                      <p className="text-xs sm:text-xs md:text-sm text-gray-600 font-light mt-1">hours</p>
+                    </div>
+
+                    {/* Separator */}
+                    <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6">:</span>
+
+                    {/* Minutes */}
+                    <div className="flex flex-col items-center">
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
+                        {String(timeLeft.minutes).padStart(2, '0')}
+                      </div>
+                      <p className="text-xs sm:text-xs md:text-sm text-gray-600 font-light mt-1">minutes</p>
+                    </div>
+
+                    {/* Separator */}
+                    <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6">:</span>
+
+                    {/* Seconds */}
+                    <div className="flex flex-col items-center">
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-wider font-mono">
+                        {String(timeLeft.seconds).padStart(2, '0')}
+                      </div>
+                      <p className="text-xs sm:text-xs md:text-sm text-gray-600 font-light mt-1">seconds</p>
+                    </div>
                   </div>
                 </div>
 
@@ -116,95 +285,6 @@ export default function LiveWebinarCountdown() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes floatDot {
-          0% {
-            transform: translateY(0px) translateX(0px) scale(1);
-            opacity: 0.6;
-          }
-          5% {
-            transform: translateY(-50px) translateX(-70px) scale(1.05);
-            opacity: 0.75;
-          }
-          10% {
-            transform: translateY(-90px) translateX(40px) scale(1);
-            opacity: 0.85;
-          }
-          15% {
-            transform: translateY(-60px) translateX(95px) scale(0.95);
-            opacity: 0.8;
-          }
-          20% {
-            transform: translateY(30px) translateX(80px) scale(1);
-            opacity: 0.75;
-          }
-          25% {
-            transform: translateY(85px) translateX(-50px) scale(1.02);
-            opacity: 0.8;
-          }
-          30% {
-            transform: translateY(70px) translateX(-95px) scale(1);
-            opacity: 0.85;
-          }
-          35% {
-            transform: translateY(-45px) translateX(-85px) scale(1.05);
-            opacity: 0.8;
-          }
-          40% {
-            transform: translateY(-80px) translateX(60px) scale(0.95);
-            opacity: 0.75;
-          }
-          45% {
-            transform: translateY(50px) translateX(35px) scale(1);
-            opacity: 0.8;
-          }
-          50% {
-            transform: translateY(0px) translateX(0px) scale(1.02);
-            opacity: 0.6;
-          }
-          55% {
-            transform: translateY(-35px) translateX(80px) scale(1);
-            opacity: 0.8;
-          }
-          60% {
-            transform: translateY(75px) translateX(-75px) scale(1.05);
-            opacity: 0.85;
-          }
-          65% {
-            transform: translateY(-70px) translateX(-45px) scale(0.95);
-            opacity: 0.8;
-          }
-          70% {
-            transform: translateY(60px) translateX(65px) scale(1);
-            opacity: 0.75;
-          }
-          75% {
-            transform: translateY(-55px) translateX(-90px) scale(1.02);
-            opacity: 0.8;
-          }
-          80% {
-            transform: translateY(-25px) translateX(85px) scale(1);
-            opacity: 0.85;
-          }
-          85% {
-            transform: translateY(80px) translateX(-70px) scale(1.05);
-            opacity: 0.8;
-          }
-          90% {
-            transform: translateY(-75px) translateX(50px) scale(0.95);
-            opacity: 0.75;
-          }
-          95% {
-            transform: translateY(45px) translateX(-60px) scale(1);
-            opacity: 0.8;
-          }
-          100% {
-            transform: translateY(0px) translateX(0px) scale(1);
-            opacity: 0.6;
-          }
-        }
-      `}</style>
     </section>
   )
 }
